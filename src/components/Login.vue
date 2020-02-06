@@ -4,10 +4,7 @@
         <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-
                 <div class="modal-body">
-
-
                         <ul class="nav nav-fill nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
@@ -32,7 +29,7 @@
                             </div>
 
                              <div class="form-group">
-                                <button class="btn btn-primary">Login</button>
+                                <button class="btn btn-primary" @click="login()">Login</button>
                             </div>
 
                         </div>
@@ -89,40 +86,39 @@ export default {
   },
 
   methods:{
-    //   login(){
+      login(){
+          fb.auth().signInWithEmailAndPassword(this.email, this.password)
+                        .then(() => {
+                        $('#login').modal('hide')
+                          this.$router.replace('admin');  
+                        })
+                        .catch(function(error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            if (errorCode === 'auth/wrong-password') {
+                                alert('Wrong password.');
+                            } else {
+                                alert(errorMessage);
+                            }
+                            console.log(error);
+                    });
 
-    //       fb.auth().signInWithEmailAndPassword(this.email, this.password)
-    //                     .then(() => {
-    //                     $('#login').modal('hide')
-    //                       this.$router.replace('admin');  
-    //                     })
-    //                     .catch(function(error) {
-    //                         // Handle Errors here.
-    //                         var errorCode = error.code;
-    //                         var errorMessage = error.message;
-    //                         if (errorCode === 'auth/wrong-password') {
-    //                             alert('Wrong password.');
-    //                         } else {
-    //                             alert(errorMessage);
-    //                         }
-    //                         console.log(error);
-    //                 });
-
-    //   },
+      },
       register(){
             fb.auth().createUserWithEmailAndPassword(this.email, this.password)
                 .then((user) => {
                     $('#login').modal('hide')
                     
-                    db.collection("profiles").doc(user.user.uid).set({
-                        name: this.name
-                    })
-                    .then(function() {
-                        console.log("Document successfully written!");
-                    })
-                    .catch(function(error) {
-                        console.error("Error writing document: ", error);
-                    });
+                    // db.collection("profiles").doc(user.user.uid).set({
+                    //     name: this.name
+                    // })
+                    // .then(function() {
+                    //     console.log("Document successfully written!");
+                    // })
+                    // .catch(function(error) {
+                    //     console.error("Error writing document: ", error);
+                    // });
 
                     this.$router.replace('admin');
                 })

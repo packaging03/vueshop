@@ -33,9 +33,11 @@ import Products from "@/sections/Products.vue";
 import Login from "@/components/Login.vue";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
-    Hero,Products,Login
+    Hero,
+    Products,
+    Login
   }
 };
 </script>

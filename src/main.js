@@ -11,11 +11,20 @@ import jQuery from 'jquery'
 window.$ = window.jQuery = jQuery
 import 'popper.js'
 import './assets/sass/index.scss'
+import {fb} from './firebase'
+
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+let app = '';
+
+fb.auth().onAuthStateChanged(function(user) {
+  if(!app) {
+    new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app')
+    
+  } 
+})

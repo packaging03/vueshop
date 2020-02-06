@@ -12,6 +12,11 @@ var firebaseConfig = {
   };
   // Initialize Firebase
   
-  firebase.analytics();                                      
+  //firebase.analytics();                                      
+  // if (!firebase.apps.length) {
+  //   firebase.analytics();
+  //   firebase.initializeApp(config);
+  // }
 
-  export const fb = firebase.initializeApp(firebaseConfig);
+  //firebase.initializeApp(firebaseConfig);
+  export const fb = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();

@@ -106,13 +106,13 @@ import Hero from "@/components/Hero.vue";
 import {fb} from '../firebase'
 
 export default {
-  name: "admin",
-//   data(){
-//       return{
-//           name:null,
-//           email:null,
-//       }
-//   },
+  name: "Admin",
+  data(){
+      return{
+          name:null,
+          email:null,
+      }
+  },
   components: {
     Hero
   },
